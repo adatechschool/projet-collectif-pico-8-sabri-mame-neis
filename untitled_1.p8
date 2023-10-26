@@ -6,6 +6,7 @@ function _init()
 	enemies={}
  enemies_1={}
 	bullets={}
+	score=0
 end
 
 function _update()
@@ -16,7 +17,7 @@ function _update()
  update_enemies_1()
  update_bullets()
  if #enemies==0 then
- 	spawn_enemies(ceil(rnd(7)))
+ 	spawn_enemies(ceil(rnd(4)))
  end
  if #enemies_1==0 then
  	spawn_enemies_1(ceil(rnd(5)))
@@ -55,6 +56,8 @@ function _draw()
  	spr(18,b.x,b.y)
  end  
  
+ print("score:"..score,34*8,1*8,15)
+
 end
 
 -->8
@@ -203,7 +206,7 @@ function update_enemies()
 				e.life-=1
 				if e.life==0 then
 					del(enemies,e)
-					--score+=50
+					score+=50
 				end
 			end
 		end	
