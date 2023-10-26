@@ -4,7 +4,7 @@ __lua__
 function _init()
 	create_player()
 	enemies={}
-
+ enemies_1={}
 	bullets={}
 end
 
@@ -13,11 +13,15 @@ function _update()
  check_flag(flag,x,y)
  update_camera()
  update_enemies()
+ update_enemies_1()
+ update_bullets()
  if #enemies==0 then
  	spawn_enemies(ceil(rnd(7)))
  end
+ if #enemies_1==0 then
+ 	spawn_enemies_1(ceil(rnd(5)))
+ end
  
- update_bullets()
  if btnp(❎) then
  	shoot()
  end
@@ -40,6 +44,11 @@ function _draw()
  for e in all(enemies) do
  	spr(17,e.x,e.y)
  end
+ 
+ for e in all(enemies_1) do
+ 	spr(12,e.x,e.y)
+ end
+ 
  
  --afficher balles
  for b in all(bullets) do
@@ -154,31 +163,74 @@ function spawn_enemies(amount)
 		new_enemy={
 			x=250+gap*i+8*i-1,
 			y=-8,
+			life=3,
 		}
 		new_mechant={
 			x=250+gap*i+8*i-1,
-			y=-20
+			y=-20,
+			life=3,
 		}
 		add(enemies,new_enemy)
 		add(enemies,new_mechant)
 	end
 end
 
+function spawn_enemies_1(amount)
+ gap1=(128-8*amount)/(amount+1)
+	for i=1,amount do
+
+	 new_enemy_1={
+	  x=15*8+gap1*i+8*(i-1),
+	  y=-8,
+	  life=4,
+ 	}
+	 add(enemies_1,new_enemy_1)
+ end
+end
+
 --jusqu'ou vont les enemy et quand ils arrivent en fonction de p
 function update_enemies()
 	for e in all(enemies)do
-		if e.y<50 and p.x>33 then
+		if p.x>33 then
 			e.y+=0.5
+		end
+		if e.y>128 then
+			del(enemies,e)
 		end
 		for b in all(bullets) do
 			if collision(e,b) then
-				del(enemies,e)
+				del(bullets,b)
+				e.life-=1
+				if e.life==0 then
+					del(enemies,e)
+					--score+=50
+				end
 			end
 		end	
 	end
 end
-
 --
+
+function update_enemies_1()
+	for e in all(enemies_1) do
+	--if e.y<50 and p.x>33 then code mame
+	 e.y+=0.5
+	if e.y > 128 then
+			del(enemies_1,e)
+	 end	
+		--collision
+		
+		for b in all(bullets) do
+			if collision(e,b) then
+				 del(bullets,b)
+				e.life-=1
+				if e.life==0 then
+				 del(enemies_1,e)
+				end
+			end
+		end
+	end
+end
 -->8
 --balles
 
