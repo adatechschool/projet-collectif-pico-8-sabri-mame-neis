@@ -206,7 +206,7 @@ function interact(x,y)
  end
  if x==55 and y==7 then
  	create_msg("prisonnier",384,
- 	"retrouve les clees sanema")
+ 	"merci de m'avoir rendu libre")
  end
 
 
