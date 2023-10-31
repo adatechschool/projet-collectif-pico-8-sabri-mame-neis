@@ -109,6 +109,7 @@ end
 --player
 
 function create_player()
+
 	p={
 	x=1,y=5,
 	sprite=1,
@@ -143,7 +144,9 @@ function player_movement()
   newy+=1
   newoy=-8
  end
- end
+ 
+
+end
 
     --checker si il y a un flag
  if not check_flag(0,newx,newy)
@@ -167,6 +170,8 @@ function player_movement()
   	else
   		p.sprite=2
 			end
+		
+
 end
 
 function draw_player()
@@ -204,6 +209,7 @@ function interact(x,y)
  	"retrouve les clees sanema")
  end
 
+
  
  --fin
  if p.x==72 and p.y==4 then
@@ -211,6 +217,7 @@ function interact(x,y)
  else
  	state=0
  end	
+
 
 end
 -->8
@@ -264,7 +271,7 @@ function update_enemies()
 					del(enemies,e)
 					gentil(e.x,e.y)
 					score+=50
-
+				
 				end
 			end
 		end	
